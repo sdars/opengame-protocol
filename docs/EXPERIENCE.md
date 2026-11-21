@@ -114,6 +114,8 @@ Vercel 会缓存页面/接口。核对 `X-Vercel-Cache`（实测 `MISS` = 实时
 * 主代码只放仓库源码目录；抓包、探针、dump 放 `tmp/逆向分析/<日期>/`，
   敏感产物（session token、账号记录）不入 Git。
 * 收尾清理：停掉后台轮询/代理中继、删 `__pycache__`、删临时 dump。
+* 凭据一律走环境变量：`OPENGAME_IMAP_PASSWORD`（邮箱）、`OPENGAME_PROXY_ENV`
+  （代理池 .env）。**不要**把密码写进脚本默认值——脚本默认值会跟着 Git 走。
 
 ## 13. 交付形态
 

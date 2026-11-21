@@ -75,10 +75,17 @@ def main() -> int:
     parser.add_argument('--proxy-env', default=proxy_pool.DEFAULT_ENV_PATH)
     parser.add_argument('--imap-host', default='imap.aoog.de')
     parser.add_argument('--imap-user', default='chatgpt@958889.xyz')
-    parser.add_argument('--imap-password', default='845679Ars')
+    parser.add_argument(
+        '--imap-password',
+        default=os.environ.get('OPENGAME_IMAP_PASSWORD', ''),
+        help='IMAP password (or export OPENGAME_IMAP_PASSWORD)',
+    )
     parser.add_argument('--imap-timeout', type=int, default=180)
     parser.add_argument('--out', default='', help='where to write the captured coupon')
     args = parser.parse_args()
+    if not args.imap_password:
+        log('no IMAP password: pass --imap-password or export OPENGAME_IMAP_PASSWORD')
+        return 2
 
     record = json.load(open(args.resume, encoding='utf-8'))
     mailbox = ImapMailbox(args.imap_host, args.imap_user, args.imap_password)
