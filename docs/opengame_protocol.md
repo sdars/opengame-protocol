@@ -193,6 +193,13 @@ POST /auth/sign-in  intent=verify  → 下发 sb-auth-auth-token cookie
 | `fal` | coupon | fal | $50 | Add billing details. |
 | `elevenlabs` | link | ElevenLabs | 一个月 Creator plan | — |
 
+除这三个之外的所有 sponsor id 都是 `refused`（实测 `fal-1` / `fal-3` / `fal-4` / `fal_2` /
+`FAL-2` / `elevenlabs-1` / `elevenlabs-2` / `meshy` / `chroma` 全部落到
+`{"kind":"refused","message":"We could not load your code. If one was set aside for you,
+it stays yours. Try again in a minute."}`）。2026-11-21 实测三个合法 sponsor 的
+`open` 结果分别是 `fal-2 → exhausted`、`fal → exhausted`、`elevenlabs → exhausted`，
+即服务端码池全部为空。
+
 ### `claimedHere` 的真实语义
 
 客户端 `j()` 只有在 `localStorage['og-sponsor-code-claimed:' + sponsor] === "1"` 时才带上
