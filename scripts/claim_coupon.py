@@ -225,7 +225,11 @@ def main() -> int:
     parser.add_argument('--proxy-env', default=proxy_pool.DEFAULT_ENV_PATH)
     parser.add_argument('--imap-host', default='imap.aoog.de')
     parser.add_argument('--imap-user', default='chatgpt@958889.xyz')
-    parser.add_argument('--imap-password', default='845679Ars')
+    parser.add_argument(
+        '--imap-password',
+        default=os.environ.get('OPENGAME_IMAP_PASSWORD', ''),
+        help='IMAP password (or export OPENGAME_IMAP_PASSWORD)',
+    )
     parser.add_argument('--imap-timeout', type=int, default=180)
     parser.add_argument('--wait', action='store_true', help='keep polling the offer until a code is available')
     parser.add_argument('--poll', type=int, default=120, help='seconds between polls in --wait mode')
@@ -234,6 +238,9 @@ def main() -> int:
     parser.add_argument('--out', default='', help='write the account record here')
     parser.add_argument('--seed', type=int, default=0)
     args = parser.parse_args()
+    if not args.imap_password:
+        log('no IMAP password: pass --imap-password or export OPENGAME_IMAP_PASSWORD')
+        return 2
     try:
         return run(args)
     except Exception as exc:  # noqa: BLE001 - every failure is reported the same way

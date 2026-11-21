@@ -14,6 +14,9 @@
 ```bash
 # Python 依赖统一装在 /root/Knight/.venv（不污染系统环境）
 /root/Knight/.venv/bin/pip install requests PySocks
+
+# 邮箱凭据走环境变量，不写进代码/仓库
+export OPENGAME_IMAP_PASSWORD='<imap password>'
 ```
 
 ## 用法
@@ -46,6 +49,9 @@
 | `--wait --poll 120 --wait-hours 72` | 池空时持续轮询，补货即自动领取 |
 | `--resume <file>` | 复用账号记录与会话 cookie |
 | `--out <file>` | 账号/优惠码记录落盘位置 |
+
+IMAP 读取邮箱需要密码：`export OPENGAME_IMAP_PASSWORD=...` 或 `--imap-password`；
+代理出口池凭据从 `OPENGAME_PROXY_ENV`（默认 `/root/grok/.env`）读取，同样不入库。
 
 ## 目录结构
 
