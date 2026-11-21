@@ -1,0 +1,21 @@
+# 逆向过程产物（抓包、探针、账号记录）
+tmp/
+
+# 敏感产物
+*account*.json
+*session_token*.txt
+session_token.txt
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# 编辑器 / 系统
+.idea/
+.vscode/
+.DS_Store
